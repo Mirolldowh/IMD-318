@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to my personal website!">
+    <title>Home - Muhammad Amirul</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('Dawn.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: #000000;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+        }
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .hero h2 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ab12ca;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: rgb(176, 30, 206);
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 30px;
+        }
+        .audio-container {
+            text-align: center;
+            margin: 20px auto;
+        }
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .audio-controls button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .audio-controls button:hover {
+            background-color: #0056b3;
+        }
+        .current-song {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #0fefef;
+        }
+        /* Clock Styling */
+        .clock {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: white;
+            background-color: rgb(176, 30,206);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to My Personal Website</h1>
+    <p>Discover more about me, my skills, and my journey.</p>
+</header>
+
+<nav>
+    <a href="Home.html">Home</a>
+    <a href="About me.html">About Me</a>
+    <a href="Skills.html">Skills</a>
+    <a href="Exprience.html">Experience</a>
+    <a href="Education.html">Education</a>
+    <a href="family.html">Family</a>
+    <a href="Gallery.html">Gallery</a>
+</nav>
+
+<section class="hero" style="text-align: center;">
+    <h2>Nama diberi Muhammad Amirul Bin Roslan</h2>
+    <img src="Mirul.jpg" alt="Muhammad Amirul" style="width: 250px; height: 250px;">
+    <br>
+    <a href="About me.html" class="btn" style="display: inline-block;">More About Mirul</a>
+</section>
+
+
+
+<div class="audio-container">
+    <!-- Audio Player -->
+    <audio id="audioPlayer" controls>
+        <source id="audioSource" src="Don Toliver - Bus Stop.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Controls for Previous, Play, and Next -->
+    <div class="audio-controls">
+        <button onclick="previousSong()">Previous</button>
+        <button onclick="togglePlayPause()">Play/Pause</button>
+        <button onclick="nextSong()">Next</button>
+    </div>
+
+    <!-- Current Song Display -->
+    <div id="currentSong" class="current-song">Currently Playing : Don Toliver - Bus Stop</div>
+</div>
+
+<!-- Real-Time Clock -->
+<div id="clock" class="clock"></div>
+
+<footer>
+    <p> @MIROLLDOWH</p>
+</footer>
+
+<script>
+    // Array of songs
+    const songs = [
+        { title: "Don Toliver - Bus Stop", url: "Don Toliver - Bus Stop.mp3" },
+        { title: "Don Toliver - Honeymoon", url: "Don Toliver - Honeymoon.mp3" },
+        { title: "Don Toliver - Tore Up", url: "Don Toliver- Tore Up.mp3" },
+        { title: "Don Toliver - New Drop", url: "Don Toliver - New drop.mp3" },
+        { title: "Don Toliver - Time heal All", url: "Don Toliver - Time heall All.mp3" }
+    ];
+
+    let currentSongIndex = 0;
+
+    const audioPlayer = document.getElementById("audioPlayer");
+    const audioSource = document.getElementById("audioSource");
+    const currentSongDisplay = document.getElementById("currentSong");
+
+    // Update the current song
+    function updateSong() {
+        const currentSong = songs[currentSongIndex];
+        audioSource.src = currentSong.url;
+        audioPlayer.load(); // Reload the audio element to update the source
+        currentSongDisplay.textContent = "Currently Playing: " + currentSong.title;
+    }
+
+    // Play/Pause functionality
+    function togglePlayPause() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+        } else {
+            audioPlayer.pause();
+        }
+    }
+
+    // Next song functionality
+    function nextSong() {
+        currentSongIndex = (currentSongIndex + 1) % songs.length; // Loop back to the first song
+        updateSong();
+        audioPlayer.play();
+    }
+
+    // Previous song functionality
+    function previousSong() {
+        currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length; // Loop to last song
+        updateSong();
+        audioPlayer.play();
+    }
+
+    // Initialize the first song
+    updateSong();
+
+    // Function to update the time every second
+    function updateClock() {
+        const clockElement = document.getElementById('clock');
+        const currentDate = new Date();
+        let hours = currentDate.getHours();
+        let minutes = currentDate.getMinutes();
+        let seconds = currentDate.getSeconds();
+
+        // Add leading zeros to minutes and seconds
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        // Format the time string
+        const timeString = hours + ':' + minutes + ':' + seconds;
+
+        // Display the time in the clock element
+        clockElement.textContent = timeString;
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initialize clock on page load
+    updateClock();
+</script>
+
+</body>
+</html>
+
